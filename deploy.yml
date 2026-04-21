@@ -1,0 +1,55 @@
+---
+- name: Deploy Application to EKS
+  hosts: localhost
+  tasks:
+    - name: Create a Namespace
+      kubernetes.core.k8s:
+        name: production
+        api_version: v1
+        kind: Namespace
+        state: present
+
+    - name: Deploy a Simple Web Server
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: apps/v1
+          kind: Deployment
+          metadata:
+            name: web-app
+            namespace: production
+          spec:
+            replicas: 2
+            selector:
+              matchLabels:
+                app: web
+            template:
+              metadata:
+                labels:
+                  app: web
+              spec:
+                containers:
+                - name: nginx
+                  image: nginx:latest
+                  ports:
+                  - containerPort: 80
+
+    - name: Create LoadBalancer Service
+      kubernetes.core.k8s:
+        state: present
+        definition:
+          apiVersion: v1
+          kind: Service
+          metadata:
+            name: web-service
+            namespace: production
+            annotations:
+              service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
+          spec:
+            selector:
+              app: web
+            ports:
+            - protocol: TCP
+              port: 80
+              targetPort: 80
+            type: LoadBalancer
