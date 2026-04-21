@@ -69,5 +69,5 @@ Below is the verified output of the automated deployment, showcasing the success
 
 Highly focused on Cloud Architecture, DevOps Automation, and building secure, scalable system logic. 
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/MuhammadAbdelkader)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/muhammadabdelkader/)
 [![GitHub](https://img.shields.io/badge/GitHub-Profile-lightgrey?style=flat&logo=github)](https://github.com/MuhammadAbdelkader)
