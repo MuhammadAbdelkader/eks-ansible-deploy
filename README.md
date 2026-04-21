@@ -1,33 +1,73 @@
-# ☸️ EKS Deployment Automation | Ansible & Kubernetes
+# ☸️ Automated EKS Infrastructure & Application Deployment
+[![AWS](https://img.shields.io/badge/AWS-Cloud-orange?style=flat&logo=amazon-aws)](https://aws.amazon.com/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-blue?style=flat&logo=kubernetes)](https://kubernetes.io/)
+[![Ansible](https://img.shields.io/badge/Ansible-Automation-red?style=flat&logo=ansible)](https://www.ansible.com/)
+[![Security](https://img.shields.io/badge/Security-Hardened-green?style=flat&logo=google-cloud-security)](https://github.com/MuhammadAbdelkader/eks-ansible-deploy)
 
-![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
-![Kubernetes](https://img.shields.io/badge/kubernetes-%23326ce5.svg?style=for-the-badge&logo=kubernetes&logoColor=white)
-![Ansible](https://img.shields.io/badge/ansible-%231A1918.svg?style=for-the-badge&logo=ansible&logoColor=white)
+## 📌 Executive Summary
+This repository showcases a **production-grade automation workflow** for deploying scalable web applications on **Amazon EKS (Elastic Kubernetes Service)**. By bridging the gap between Infrastructure as Code (IaC) and Kubernetes orchestration, this project automates the entire lifecycle of a containerized service—from VPC networking adjustments to global Load Balancer provisioning.
 
-## 🎯 Overview
-This project demonstrates a production-ready automation workflow for deploying applications on **Amazon EKS (Elastic Kubernetes Service)**. It leverages **Ansible** to orchestrate Kubernetes resources, ensuring a repeatable and error-free deployment process.
+## 🏗️ Architecture & Engineering Logic
+The deployment is engineered with a focus on **High Availability (HA)** and **Security**. 
 
-## 🛠️ Architectural Features
-- **Infrastructure as Code (IaC):** Full automation using Ansible playbooks.
-- **EKS Auto Mode Integration:** Optimized using AWS-specific annotations for Load Balancer provisioning.
-- **High Availability:** Configured with multiple replicas and automated service discovery.
-- **Public-Facing Access:** Integrated with AWS Elastic Load Balancing (ELB).
+### 🔐 Security & Network Hardening
+* **Subnet-Level Isolation:** Strategic tagging of Public Subnets (`kubernetes.io/role/elb`) ensuring traffic is routed through authorized entry points.
+* **Scheme Enforcement:** Explicitly defining `internet-facing` annotations to prevent accidental exposure of internal resources.
+* **Namespace Segregation:** Deployment is isolated within a dedicated `production` namespace to follow the principle of least privilege.
 
-## 🚀 Quick Start
-1. **Clone the Repo:**
+### ⚙️ Automation Stack
+- **Ansible:** Orchestrates the deployment of Kubernetes manifests, managing state and ensuring idempotency.
+- **EKS Auto Mode:** Leverages AWS-native integration for dynamic resource provisioning.
+
+---
+
+## 🖼️ Proof of Concept (Deployment Result)
+Below is the verified output of the automated deployment, showcasing the successfully provisioned Nginx server via AWS Load Balancer.
+
+<p align="center">
+  <img src="assets/nginx_success.png" alt="Nginx Success Page" width="700">
+  <br>
+  <em>Figure 1: Verified external access through AWS ELB DNS.</em>
+</p>
+
+---
+
+## 🚀 Deployment Guide
+
+### Prerequisites
+- **AWS CLI** configured with appropriate IAM permissions.
+- **Ansible** installed with the `kubernetes.core` collection.
+- **kubectl** authenticated with your EKS Cluster.
+
+### Execution
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/MuhammadAbdelkader/eks-ansible-deploy.git
+   cd eks-ansible-deploy
    ```
-2. **Execute Deployment:**
+2. **Apply Configuration:**
    ```bash
    ansible-playbook -i inventory.ini deploy.yml
    ```
+3. **Verify Service Status:**
+   ```bash
+   kubectl get svc -n production
+   ```
 
-## 🧠 Skills Demonstrated
-- Cloud Networking (VPC, Subnets, ELB Tagging)
-- Configuration Management (Ansible)
-- Container Orchestration (Kubernetes)
-- Troubleshooting & Debugging Cloud Environments
+## 🛠️ Skills Highlighted
+| Domain | Proficiency |
+| :--- | :--- |
+| **Cloud Infrastructure** | AWS (EKS, VPC, IAM, ELB Tagging) |
+| **DevOps & Automation** | Infrastructure as Code (Ansible), CI/CD Logic |
+| **Orchestration** | Service Types, Annotations, Deployment Controllers |
+| **Engineering** | Technical Documentation, Critical Troubleshooting |
 
 ---
-**Maintained by [Mohamed Abdelkader](https://github.com/MuhammadAbdelkader)** *Software & Technical Engineer | Final Year IS Student @ Benha University*
+
+## 👨‍💻 About the Author
+**Mohamed Abdelkader** **Software & Technical Engineer** *Final Year Information Systems Student @ Benha University*
+
+Highly focused on Cloud Architecture, DevOps Automation, and building secure, scalable system logic. 
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Profile-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/MuhammadAbdelkader)
+[![GitHub](https://img.shields.io/badge/GitHub-Profile-lightgrey?style=flat&logo=github)](https://github.com/MuhammadAbdelkader)
